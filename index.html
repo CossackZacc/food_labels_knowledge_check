@@ -1,98 +1,198 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nutrition Facts Quiz</title>
-<style>
-body {
-font-family: Arial, Helvetica, sans-serif;
-background-color: #f7fafc;
-color: #0f172a;
-margin: 0;
-padding: 40px;
-}
-.quiz-container {
-max-width: 700px;
-margin: 0 auto;
-background: #ffffff;
-border-radius: 12px;
-box-shadow: 0 6px 24px rgba(0,48,87,0.08);
-padding: 30px;
-}
-h1 {
-color: #003057;
-text-align: center;
-}
-.question {
-font-weight: 600;
-margin-bottom: 12px;
-}
-.answers button {
-display: block;
-width: 100%;
-text-align: left;
-background-color: #f1f5f9;
-color: #003057;
-border: 1px solid rgba(0,48,87,0.2);
-border-radius: 8px;
-padding: 10px;
-margin-bottom: 8px;
-cursor: pointer;
-transition: background 0.2s;
-}
-.answers button:hover {
-background-color: #ffb300;
-color: #003057;
-}
-.feedback {
-margin-top: 12px;
-font-size: 14px;
-padding: 8px;
-border-radius: 6px;
-}
-.correct {
-background-color: #e6ffed;
-color: #065f46;
-}
-.incorrect {
-background-color: #fee2e2;
-color: #991b1b;
-}
-.next-btn {
-display: inline-block;
-margin-top: 16px;
-background-color: #003057;
-color: #ffffff;
-border: none;
-padding: 10px 20px;
-border-radius: 8px;
-cursor: pointer;
-}
-.next-btn:hover {
-background-color: #145a8a;
-}
-#score-container {
-text-align: center;
-display: none;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nutrition Facts Quiz</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f7fafc;
+      color: #0f172a;
+      margin: 0;
+      padding: 40px;
+    }
+    .quiz-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0,48,87,0.08);
+      padding: 30px;
+    }
+    h1 {
+      color: #003057;
+      text-align: center;
+    }
+    .question {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .answers button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background-color: #f1f5f9;
+      color: #003057;
+      border: 1px solid rgba(0,48,87,0.2);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .answers button:hover {
+      background-color: #ffb300;
+      color: #003057;
+    }
+    .feedback {
+      margin-top: 12px;
+      font-size: 14px;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    .correct {
+      background-color: #e6ffed;
+      color: #065f46;
+    }
+    .incorrect {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+    .next-btn {
+      display: inline-block;
+      margin-top: 16px;
+      background-color: #003057;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .next-btn:hover {
+      background-color: #145a8a;
+    }
+    #score-container {
+      text-align: center;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-<div class="quiz-container">
-<h1>Nutrition Facts Knowledge Check</h1>
-<div id="quiz">
-<div id="question-container"></div>
-<div id="answers" class="answers"></div>
-<div id="feedback" class="feedback"></div>
-<button id="next-btn" class="next-btn" style="display:none;">Next Question</button>
-</div>
-<div id="score-container">
-<h2>Your Score:</h2>
-<p id="score"></p>
-<a href="index.html" style="text-decoration:none;background:#ffb300;color:#003057;font-weight:600;padding:8px 12px;border-radius:8px;">← Back to Article</a>
-</div>
-</div>
+  <div class="quiz-container">
+    <h1>Nutrition Facts Knowledge Check</h1>
+    <div id="quiz">
+      <div id="question-container"></div>
+      <div id="answers" class="answers"></div>
+      <div id="feedback" class="feedback"></div>
+      <button id="next-btn" class="next-btn" style="display:none;">Next Question</button>
+    </div>
+    <div id="score-container">
+      <h2>Your Score:</h2>
+      <p id="score"></p>
+      <a href="index.html" style="text-decoration:none;background:#ffb300;color:#003057;font-weight:600;padding:8px 12px;border-radius:8px;">← Back to Article</a>
+    </div>
+  </div>
 
+  <script>
+    const quizData = [
+      {
+        question: "What does the Nutrition Facts Label help you track?",
+        answers: ["Sugars, fats, protein, and other nutrients", "Only calories", "Just sodium and sugar"],
+        correct: 0,
+        explanation: "The label helps track sugars, fats, protein, sodium, and other nutrients to support a healthy diet."
+      },
+      {
+        question: "What does the serving size on a Nutrition Facts Label represent?",
+        answers: ["How much you should eat", "What people typically eat or drink", "The smallest amount allowed by law"],
+        correct: 1,
+        explanation: "Serving size reflects what people are likely to eat or drink, not what they should eat."
+      },
+      {
+        question: "What is the recommended daily sodium limit?",
+        answers: ["1,500 mg", "2,300 mg", "3,000 mg"],
+        correct: 1,
+        explanation: "The FDA recommends limiting sodium intake to 2,300 milligrams per day."
+      },
+      {
+        question: "How much of your daily calories should come from added sugars?",
+        answers: ["Less than 5%", "Less than 10%", "Up to 25%"],
+        correct: 1,
+        explanation: "Added sugars should make up less than 10% of your daily calories."
+      },
+      {
+        question: "Which nutrients are required on the Nutrition Facts Label?",
+        answers: ["Vitamin D, Calcium, Iron, and Potassium", "Vitamin A and C", "Zinc and Magnesium"],
+        correct: 0,
+        explanation: "Vitamin D, Calcium, Iron, and Potassium must be listed on the Nutrition Facts Label."
+      }
+    ];
 
-<script>
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById('question-container');
+    const answersContainer = document.getElementById('answers');
+    const feedback = document.getElementById('feedback');
+    const nextBtn = document.getElementById('next-btn');
+    const scoreContainer = document.getElementById('score-container');
+    const scoreDisplay = document.getElementById('score');
+
+    function loadQuestion() {
+      feedback.textContent = '';
+      nextBtn.style.display = 'none';
+      const current = quizData[currentQuestion];
+      questionContainer.innerHTML = `<p class='question'>${current.question}</p>`;
+      answersContainer.innerHTML = '';
+
+      current.answers.forEach((answer, index) => {
+        const button = document.createElement('button');
+        button.textContent = answer;
+        button.onclick = () => selectAnswer(index);
+        answersContainer.appendChild(button);
+      });
+    }
+
+    function selectAnswer(index) {
+      const current = quizData[currentQuestion];
+      const buttons = answersContainer.querySelectorAll('button');
+
+      buttons.forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === current.correct) {
+          btn.style.backgroundColor = '#e6ffed';
+          btn.style.color = '#065f46';
+        }
+      });
+
+      if (index === current.correct) {
+        feedback.textContent = 'Correct! ' + current.explanation;
+        feedback.className = 'feedback correct';
+        score++;
+      } else {
+        feedback.textContent = 'Incorrect. ' + current.explanation;
+        feedback.className = 'feedback incorrect';
+      }
+
+      nextBtn.style.display = 'inline-block';
+    }
+
+    nextBtn.addEventListener('click', () => {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showScore();
+      }
+    });
+
+    function showScore() {
+      document.getElementById('quiz').style.display = 'none';
+      scoreContainer.style.display = 'block';
+      scoreDisplay.textContent = `${score} / ${quizData.length} correct`;
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
